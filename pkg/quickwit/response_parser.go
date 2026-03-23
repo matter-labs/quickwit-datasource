@@ -148,20 +148,9 @@ func processLogsResponse(res *es.SearchResponse, target *Query, configuredFields
 			}
 		}
 
-		// Add _source field (full document as JSON string) to match ES behavior.
-		// Grafana's virtualized log panel uses _source for height measurement
-		// when displayed fields are active.
-		if _, hasSource := doc["_source"]; !hasSource {
-			sourceBytes, err := json.Marshal(doc)
-			if err == nil {
-				doc["_source"] = string(sourceBytes)
-			}
-		}
-
 		docs[hitIdx] = doc
 	}
 
-	propNames["_source"] = true
 	sortedPropNames := sortPropNames(propNames, configuredFields, true)
 	fields := processDocsToDataFrameFields(docs, sortedPropNames, configuredFields)
 
