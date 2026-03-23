@@ -71,7 +71,7 @@ export function processLogsDataFrame(datasource: BaseQuickwitDataSource, dataFra
     }
 
     field.config = field.config || {};
-    field.config.links = [...(field.config.links || [], linksToApply.map(generateDataLink))];
+    field.config.links = [...(field.config.links || []), ...linksToApply.map(generateDataLink)];
   }
 }
 function generateDataLink(linkConfig: DataLinkConfig): DataLink {
