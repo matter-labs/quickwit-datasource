@@ -1115,6 +1115,9 @@ func findTheFirstNonNilDocValueForPropName(docs []map[string]interface{}, propNa
 			return doc[propName]
 		}
 	}
+	if len(docs) == 0 {
+		return nil
+	}
 	return docs[0][propName]
 }
 
